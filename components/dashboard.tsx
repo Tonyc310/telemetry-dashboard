@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 
 import { ConnectionStatus, type Connection } from "@/components/connection-status";
 import { StatTile } from "@/components/stat-tile";
-import { addReading, summarize, type Windows } from "@/lib/rolling-window";
+import { addReading, type Windows } from "@/lib/rolling-window";
 import { parseReading } from "@/lib/telemetry";
 
-/** Subscribes to the telemetry stream and shows each field's latest value, grouped by message. */
+/** Subscribes to the telemetry stream and shows each field's value and history, by message. */
 export function Dashboard() {
   const [windows, setWindows] = useState<Windows>({});
   const [connection, setConnection] = useState<Connection>("connecting");
@@ -38,7 +38,7 @@ export function Dashboard() {
           <h2 className="text-sm font-medium tracking-wide text-gray-500 uppercase">{message}</h2>
           <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {Object.entries(fields).map(([field, points]) => (
-              <StatTile key={field} label={field} summary={summarize(points)} />
+              <StatTile key={field} label={field} points={points} />
             ))}
           </div>
         </section>
