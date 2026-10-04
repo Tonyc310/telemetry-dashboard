@@ -17,7 +17,7 @@ export interface Summary {
 /* The point cap bounds memory even if a source sends far faster than once a second. */
 export const WINDOW = { maxAgeMs: 5 * 60_000, maxPoints: 1_000 } as const;
 
-/** Adds each value in `reading` to its field's history, dropping points that fall out of the window. */
+/** Adds each value in `reading` to its field history and drops points older than the window. */
 export function addReading(
   windows: Windows,
   reading: Reading,
